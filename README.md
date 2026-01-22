@@ -125,3 +125,31 @@ Para instalar dicho paquete utilizamos la siguiente instrucción :
 ```bash
    npm install -g loadtest 
 ```
+
+Comenzaremos con la app sin clúster, que registra estos tiempos para 1000 solicitudes con 100 concurrentes.
+
+![alt text](img/12.Loadtest1.png)
+
+Luego, veremos los resultados del número 5000, obteniendo estos tiempos de respuesta :
+
+![alt text](img/13.Loadtest2.png)
+
+Activaremos estas solicitudes con las siguientes instrucciónes :
+
+```bash
+   loadtest http://localhost:3000/api/500000 -n 1000 -c 100 
+   loadtest http://localhost:3000/api/500000000 -n 1000 -c 100
+```
+
+
+Ahora probaremos la app con clúster, utilizando los mismos test, dando estos resultados :
+
+Para 1000 solicitudes con 100 concurrentes en el número 50000 :
+
+![alt text](img/14.Loadtest3.png)
+
+y para el número 500000000 :
+
+![alt text](img/15.Loadtest4.png)
+
+Vemos poca diferencia, pero también es porque tengo 2 núcleos en la MV frente a los 8 que tiene un procesador actual, por tanto no es tan clara esa mejoría.
