@@ -35,3 +35,63 @@ Proyecto para la asignatura Despliegue de Aplicaciones Web en el cual realizarem
 > **Consejo:** No es obligatorio, pero se recomienda usar un sistema de control de versiones. En mi caso utilicé **Git** y **GitHub** para gestionar el proyecto.
 
 ---
+
+## 1. Instalación y configuración del proyecto.
+Para comenzar con este proyecto, deberemos crear una máquina virtual con **Vagrant**.
+
+Posteriormente actualizamos e instalamos dichos updates de los paquetes de nuestro SO, en mi caso: ubuntu/jammy64
+
+Lo siguiente será instalar los paquetes necesarios en la provisión en mi caso y para empezar, será nodeJS con el siguiente comando:
+
+```bash
+   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+   apt-get -y install nodejs 
+```
+
+La primera linea la utilizamos para actualizar nodejs a una versión más moderna (20), ya que sino dará problemas de compatibilidad.
+
+Luego iniciaremos un proyecto en nodejs,previamente creándole una carpeta específica, e instalaremos express :
+
+![alt text](img/1.Instalación.png)
+
+## 2. Prueba de NodeJS con clúster y sin clúster :
+
+Para ver las ventajas que ofrecen los clústers, primero haremos una prueba sin ellos y luego con ellos :
+
+### 2.1 Prueba sin clúster
+
+Lo primero será crear un fichero JavaScript de prueba llamado app_sinCluster, que tendrá el siguiente contenido :
+
+![alt text](img/2.noCluster.png)
+
+Una vez creado, deberemos copiarlo a nuestra Máquina Virtual con la siguiente instrucción :
+
+```bash
+   cp /vagrant/app_sinCluster.js . 
+```
+
+(Utilizamos . ya que previamente nos hemos movido con cd a la carpeta del proyecto)
+
+Una vez dentro de la máquina virtual por **vagrant ssh**, realizaremos esta serie de comandos para ejecutar nuestro fichero JavaScript:
+
+![alt text](img/3.ComandosJS.png)
+
+Si hemos tenido éxito, nos saldrá la linea inferior (App listening on port 3000). Si accedemos a dicho puerto desde nuestro navegador veremos esta página web :
+
+![alt text](img/4.Puerto3000.png)
+
+Por otro lado, si accedemos a la ruta /api/n con un número pequeño, obtenemos un resultado inmediato:
+
+![alt text](img/5.num_small.png)
+
+Ahora, si accedemos con un número grande veremos que tarda en responder (esto se debe a la carga del servicio al tener solo 1 hebra disponible) :
+
+![alt text](img/6.num_big.png)
+
+También si de mientras está cargando el número grande le pedimos uno pequqeño, se quedará en espera para responder :
+
+![alt text](img/7.num_with_big.png)
+
+### 2.2 Prueba con clúster
+
+Primero crearemos un fichero JavaScript con las siguientes instrucciones, para probar el clúster :
