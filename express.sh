@@ -19,3 +19,5 @@ npm init -y
 npm install express
 
 cp /vagrant/app_sinCluster.js .
+
+cp /vagrant/app_conCluster.js .

@@ -86,7 +86,7 @@ Por otro lado, si accedemos a la ruta /api/n con un número pequeño, obtenemos 
 
 Ahora, si accedemos con un número grande veremos que tarda en responder (esto se debe a la carga del servicio al tener solo 1 hebra disponible) :
 
-![alt text](img/6.num_big.png)
+![alt text](img/6.numbig.png)
 
 También si de mientras está cargando el número grande le pedimos uno pequqeño, se quedará en espera para responder :
 
@@ -95,3 +95,23 @@ También si de mientras está cargando el número grande le pedimos uno pequqeñ
 ### 2.2 Prueba con clúster
 
 Primero crearemos un fichero JavaScript con las siguientes instrucciones, para probar el clúster :
+
+![alt text](img/8.wCluster.png)
+
+Luego lo copiaremos a la Máquina Virtual con la siguiente instrucción :
+
+```bash
+   cp /vagrant/app_conCluster.js . 
+```
+
+Despúes de reiniciar la provisión, ejecutamos el fichero JS con clúster y obtendremos esta salida si todo ha ido bien :
+
+![alt text](img/9.ComandosCluster.png)
+
+Ahora repetiremos la última prueba anteriormente realizada, donde ejecutaremos 2 ventanas, una con un número grande y otra con uno pequeño :
+
+![alt text](img/10.numbig2.png)
+
+![alt text](img/11.num_with_big2.png)
+
+Vemos que por poco, pero acelera el tiempo que tarda en cargar dichas operaciones, esto se debe al **balanceo de carga**.
