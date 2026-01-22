@@ -115,3 +115,13 @@ Ahora repetiremos la última prueba anteriormente realizada, donde ejecutaremos 
 ![alt text](img/11.num_with_big2.png)
 
 Vemos que por poco, pero acelera el tiempo que tarda en cargar dichas operaciones, esto se debe al **balanceo de carga**.
+
+## 3. Métricas de Rendimiento
+
+Con el paquete **loadtest** realizaremos pruebas de carga, para comprobar como manejan una gran cantidad de peticiones de peticiones entrantes.
+
+Para instalar dicho paquete utilizamos la siguiente instrucción :
+
+```bash
+   npm install -g loadtest 
+```
