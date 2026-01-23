@@ -130,7 +130,7 @@ Comenzaremos con la app sin clúster, que registra estos tiempos para 1000 solic
 
 ![alt text](img/12.Loadtest1.png)
 
-Luego, veremos los resultados del número 5000, obteniendo estos tiempos de respuesta :
+Luego, veremos los resultados del número 500000000, obteniendo estos tiempos de respuesta :
 
 ![alt text](img/13.Loadtest2.png)
 
@@ -169,3 +169,95 @@ Luego la utilizamos en nuestra aplicación sin cluster ejecutando este comando :
 ```bash
    pm2 start app_sinCluster.js -i 0
 ```
+
+Lo que nos dará la siguiente información :
+
+![alt text](img/16.PM2.png)
+
+Ahora vamos a realizar las pruebas anteriormente hechas con PM2 :
+
+### 4.1 PM2 con app sin clúster
+
+Para utilizar la prueba de loadtest con PM2 utilizaremos las siguientes instrucciones :
+
+```bash
+   pm2 start app_sinCluster.js -i 0
+   loadtest http://localhost:3000/api/500000 -n 1000 -c 100 
+   loadtest http://localhost:3000/api/500000000 -n 1000 -c 100
+```
+
+Y luego ejecutamos las pruebas de loadtest previamente vistas.
+
+Siendo la primera 1000 solicitudes con 100 concurrentes , dando estos resultados :
+
+![alt text](img/17.sinCPM2.png)
+
+y para 1000 solicitudes con 100 concurrentes en el número 500000000, los siguientes tiempos de espera :
+
+![alt text](img/18.sinCPM2_B.png)
+
+### 4.2 Ecosystem
+
+Para no tener que pasarle la configuración a PM2, crearemos un archivo Ecosystem (también nos permite establecer configuraciones específicas para diferentes
+aplicaciones).
+
+Con la siguiente instrucción tendremos su creación :
+
+```bash
+   sudo pm2 ecosystem
+```
+
+Esto creará un fichero llamado ecosystem.config.js, que presenta la siguiente estructura :
+
+![alt text](img/19.Fichero%20Ecosystem.png)
+
+Al estar esta parte no automatizada, modificaremos el archivo de configuración con **nano** de la siguiente manera:
+
+```bash
+    sudo nano ecosystem.config.js
+```
+
+y copiaremos el contenido en la tarea, ajustado a nuestro proyecto :
+
+```bash
+module.exports = {
+  apps: [{
+    name: "app_con_pm2",
+    script: "app_sinCluster.js",
+    instances: 0,
+    exec_mode: "cluster",
+  }],
+};
+```
+
+Por último, ejecutamos el comando para activar el fichero y comprobamos que funciona :
+
+```bash
+    pm2 start ecosystem.config.js
+```
+
+Dando la siguiente tabla :
+
+![alt text](image.png)
+
+### 4.3 Comandos extra de PM2
+
+A continuación veremos diferentes comandos de PM2, indagando en su salida por terminal y para que se utilizan
+
+- **pm2 ls**
+   Este comando se utiliza para ver el estado de nuestras aplicaciones, viendo su modo, estado,consumo de cpu y de memoria.
+   Su salida es la siguiente:
+
+![alt text](img/21.pm2LS.png)
+
+- **pm2 logs**
+   Este comando se utiliza para ver los logs de nuestras aplicaciones, donde saldrán los mensajes por console.log,potenciales errores, y también identificar el trabajador que falla.
+   Su salida es la siguiente:
+
+![alt text](img/22.pm2log.png)
+
+- **pm2 monit**
+   Este comando es el principal de pm2, similar a ls pero más completo,proporcionando una interfaz visual e interactiva dentro de la terminal, permitiendo monitorizar el rendimiento en tiempo real.
+   Su salida es la siguiente:
+![alt text](img/23.pmMonit.png)
+
