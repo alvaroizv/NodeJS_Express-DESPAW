@@ -20,6 +20,8 @@ npm install express
 
 npm install -g loadtest
 
+npm install -g pm2
+
 cp /vagrant/app_sinCluster.js .
 
 cp /vagrant/app_conCluster.js .

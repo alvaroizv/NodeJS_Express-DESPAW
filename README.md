@@ -153,3 +153,19 @@ y para el número 500000000 :
 ![alt text](img/15.Loadtest4.png)
 
 Vemos poca diferencia, pero también es porque tengo 2 núcleos en la MV frente a los 8 que tiene un procesador actual, por tanto no es tan clara esa mejoría.
+
+## 4. PM2
+
+Para hacer otras pruebas, vamos a utilizar PM2, que sería el equivalente al clúster, al ser un administrador de procesos.
+
+Para instalarlo añadimos la siguiente instrucción a nuestra provisión :
+
+```bash
+   npm install -g pm2
+```
+
+Luego la utilizamos en nuestra aplicación sin cluster ejecutando este comando :
+
+```bash
+   pm2 start app_sinCluster.js -i 0
+```
