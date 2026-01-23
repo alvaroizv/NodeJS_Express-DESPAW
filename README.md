@@ -6,20 +6,16 @@ Proyecto para la asignatura Despliegue de Aplicaciones Web en el cual realizarem
 
 ## Índice
 
-1. [Herramientas necesarias](#herramientas-necesarias)
-   - [Herramientas Internas](#herramientas-internas)
-2. [1. Instalación y configuración del proyecto](#1-instalación-y-configuración-del-proyecto)
-   - [1.2 Variables de Entorno](#12-variables-de-entorno)
-     - [1.2.1 Creación de Espacio de Trabajo](#121-creación-de-espacio-de-trabajo)
-     - [1.2.2 Variables de Python y su ejecución](#122-variables-de-python-y-su-ejecución)
-   - [1.3 Instalación de paquetes de python (Flask y Gunicorn)](#13-instalacíon-de-paquetes-de-python-flask-y-gunicorn)
-3. [2. Archivos .py y despliegue](#2-archivos-py-y-despliegue)
-4. [3. Despliegue](#3-despliegue)
-   - [3.1 Despliegue con pipenv](#31-despliegue-con-pipenv)
-   - [3.2 Despliegue con Gunicorn](#32-despliegue-con-gunicorn)
-   - [3.3 Despliegue con Nginx + Gunicorn](#33-despliegue-con-nginx--gunicorn)
-5. [4. Tarea Adicional (Proyecto Azure)](#4-tarea-adicional)
-
+1. [Instalación y configuración del proyecto](#1-instalación-y-configuración-del-proyecto)
+2. [Prueba de NodeJS con clúster y sin clúster](#2-prueba-de-nodejs-con-clúster-y-sin-clúster-)
+    2.1. [Prueba sin clúster](#21-prueba-sin-clúster)
+    2.2. [Prueba con clúster](#22-prueba-con-clúster)
+3. [Métricas de Rendimiento](#3-métricas-de-rendimiento)
+4. [PM2](#4-pm2)
+    4.1. [PM2 con app sin clúster](#41-pm2-con-app-sin-clúster)
+    4.2. [Ecosystem](#42-ecosystem)
+    4.3. [Comandos extra de PM2](#43-comandos-extra-de-pm2)
+5. [Cuestiones Finales](#5-cuestiones-finales)
 ---
 
 ## Herramientas necesarias
@@ -259,5 +255,9 @@ A continuación veremos diferentes comandos de PM2, indagando en su salida por t
 - **pm2 monit**
    Este comando es el principal de pm2, similar a ls pero más completo,proporcionando una interfaz visual e interactiva dentro de la terminal, permitiendo monitorizar el rendimiento en tiempo real.
    Su salida es la siguiente:
+
 ![alt text](img/23.pmMonit.png)
 
+## 5. Cuestiones Finales
+
+Para las pruebas con n = 50, la versión sin clúster obtiene mejores tiempos de respuesta porque se demora en "inicializar" todo el proceso que conlleva el clúster. Al ser un cálculo tan rápido, el proceso maestro del clúster tarda más en delegar el trabajo que el hilo único en resolverlo directamente. En tareas tan ligeras, la gestión de subprocesos no es eficiente el uso de clúster.
